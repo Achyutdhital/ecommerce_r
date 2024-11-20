@@ -1,0 +1,291 @@
+
+{% extends base_template %}
+{% load static %}
+{% block title %} 
+Flash Sale
+{% endblock %}
+{% block body %}
+<style>
+    #id_name, #id_start_date, #id_end_date{
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #CED4DA;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+    [id^="id_flashid-"]:not([id$="-DELETE"]){
+
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #CED4DA;
+        border-radius: 4px;
+        box-sizing: border-box;
+
+
+
+    }
+
+    .add-more-btn {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        font-size: 16px;
+        text-align: center;
+        border: 1px solid #CED4DA;
+        border-radius: 4px;
+        background-color: #f8f9fa;
+        color: #495057;
+        cursor: pointer;
+    }
+
+/* Add this CSS to your static CSS file or directly in your template */
+.custom-checkbox-select-multiple {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.custom-checkbox-select-multiple label {
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+    margin-bottom: 10px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+}
+
+.custom-checkbox-select-multiple input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+   
+    .add-more-btn:hover {
+        background-color: #e2e6ea;
+    }
+    .btn-container {
+        text-align: center;
+        margin-top: 20px; /* Adjust as needed */
+    }
+</style>
+<style>
+    .nav-pills .nav-link {
+        margin-bottom: 5px; /* Space between tabs */
+    }
+
+    
+
+    .tab-content {
+        background-color: white;
+        padding: 15px;
+        border: 1px solid #dee2e6;
+        border-radius: 0.25rem;
+        margin-left: 0px; /* Space between tabs and content */
+    }
+
+    .row {
+        margin-top: 20px; /* Optional: Space above the tabs */
+    }
+</style>
+
+<div class="content-page">
+    <div class="content">
+
+        <!-- Start Content-->
+        <div class="container-fluid">
+
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box">
+                        <div class="page-title-right">
+                          
+                        </div>
+                        <h4 class="page-title">Manage Flash Sale</h4>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+
+            <div class="row mb-4">
+                <ul class="nav nav-pills bg-nav-pills nav-justified mb-3 d-sm-flex d-md-none">
+                    <li class="nav-item">
+                        <a href="#v-pills-home" data-bs-toggle="tab" aria-expanded="false" class="nav-link rounded-0 active">
+                            <span class="">Flash Sale</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#v-pills-profile" data-bs-toggle="tab" aria-expanded="true" class="nav-link rounded-0 ">
+                            <span class="">Flash Items</span>
+                        </a>
+                    </li>
+                    {% comment %} <li class="nav-item">
+                        <a href="#v-pills-settings" data-bs-toggle="tab" aria-expanded="false" class="nav-link rounded-0">
+                            <span class="">Stock</span>
+                        </a>
+                    </li> {% endcomment %}
+                </ul>
+                
+                <div class="col-sm-3 mb-2 mb-sm-0  d-none d-sm-block" style="background-color: white; border: 1px solid #dee2e6;border-radius: 0.25rem; ">
+                        <div class="nav flex-column nav-pills  mt-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+
+                     <center>   <a class="nav-link active show" id="v-pills-home-tab" data-bs-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home"
+                            aria-selected="true">
+                            {% comment %} <i class="mdi mdi-home-variant d-md-none d-block"></i> {% endcomment %}
+                            <span class="">Flash Sale</span>
+                        </a></center>
+                        <center>    <a class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile"
+                            aria-selected="false">
+                            {% comment %} <i class="mdi mdi-account-circle d-md-none d-block"></i> {% endcomment %}
+                            <span class="">Flash Items</span>
+                        </a></center>
+                       {% comment %} <center> <a class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings"
+                            aria-selected="false">
+                            <i class="mdi mdi-settings-outline d-md-none d-block"></i>
+                            <span class="">Stock</span>
+                        </a></center>  {% endcomment %}
+                    </div>
+                </div> <!-- end col-->
+            
+                <div class="col-sm-9">
+                    <form method="post" enctype="multipart/form-data" class="product-form"id="attribute_form"id="taskForm">
+                        {% csrf_token %}
+                    <div class="tab-content" id="v-pills-tabContent">
+                        <div class="tab-pane fade active show" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                                <!-- Flash Sale Information Section -->
+                                <h2>Flash Sale Information</h2>
+                                <hr>
+                                <div class="form-group">
+                                    <div class="col-xl-12">
+                                        <div class="mb-3">
+                                            <label for="product-product_name" class="form-label">Name:<span class="text-danger">*</span></label>
+                                            {{ flash_sell_form.name }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xl-12">
+                                        <div class="mb-3">
+                                            <label for="product-category" class="form-label" >Start date:<span class="text-danger">*</span></label>
+                                            {{ flash_sell_form.start_date }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xl-12">
+                                        <div class="mb-3">
+                                            <label for="product-previous_price" class="form-label">End date:<span class="text-danger">*</span></label>
+                                            {{ flash_sell_form.end_date }}
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                           <!-- Flash Items Section -->
+                           <h2>Flash Items</h2>
+                            {{ formset.management_form }}
+                            {% for form in formset.forms %}
+                                <div class="formset"id="field_list">
+                                    <label for="product-previous_price" class="form-label">Product:<span class="text-danger">*</span></label>
+                                        {{ form.product }}
+                            {% endfor %}
+                                </div>
+                            {{ formset.management_form }}
+                            {% for form in formset.forms %}
+                                <div class="formset"id="field_list">
+                                    <label for="product-previous_price" class="form-label">Discount percentage:</label>
+                                        {{ form.discount_percentage }}
+                            {% endfor %}
+                                </div>
+
+    
+                           <div class="btn-container">
+                               <button type="button" class="btn btn-danger rounded-pill mb-3" id="add_field_button"><i class="mdi mdi-plus"></i>Add More Flash Items</button>
+                               <button type="submit" class="btn btn-danger rounded-pill mb-3">Save</button>
+                           </div>            
+                        </div>
+                    </form>
+                    </div> <!-- end tab-content-->
+                </div> <!-- end col-->
+            </div>
+            <!-- end row-->
+        </div> <!-- container -->
+
+    </div> 
+        
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#id_category').change(function() {
+            var categoryId = $(this).val();
+            $.ajax({
+                url: '/ajax/get-subcategories/' + categoryId + '/',
+                success: function(data) {
+                    $('#id_sub_category').empty();
+                    $('#id_sub_category').append('<option value="">Select Subcategory</option>');
+                    $.each(data, function(index, item) {
+                        $('#id_sub_category').append('<option value="' + item.id + '">' + item.sub_category_name + '</option>');
+                    });
+                }
+            });
+        });
+        $('#id_sub_category').change(function() {
+            var subcategoryId = $(this).val();
+            $.ajax({
+                url: '/ajax/get-childcategories/' + subcategoryId + '/',
+                success: function(data) {
+                    $('#id_child_sub_category').empty();
+                    $('#id_child_sub_category').append('<option value="">Select Child Category</option>');
+                    $.each(data, function(index, item) {
+                        $('#id_child_sub_category').append('<option value="' + item.id + '">' + item.child_category_name + '</option>');
+                    });
+                }
+            });
+        });
+    });
+</script>
+
+
+
+
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('add_field_button1').addEventListener('click', function() {
+            var formsetPrefix = '{{ product_image_formset.prefix }}';
+            var totalForms = parseInt(document.getElementById('id_' + formsetPrefix + '-TOTAL_FORMS').value);
+            var newFieldIndex = totalForms;  // Index of the new field form
+            var fieldList = document.getElementById('field_list1');
+            var newFieldForm = document.createElement('div');
+            newFieldForm.className = 'form-row mb-3'; // Add class for styling
+            // Replace '__prefix__' in the formset HTML with the new index
+            var newFormsetHtml = '{{ product_image_formset.empty_form|escapejs }}'.replace(/__prefix__/g, newFieldIndex);
+            newFieldForm.innerHTML = newFormsetHtml;
+            fieldList.appendChild(newFieldForm);
+            // Update the TOTAL_FORMS count
+            document.getElementById('id_' + formsetPrefix + '-TOTAL_FORMS').value = totalForms + 1;
+        });
+    });
+    </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('add_field_button').addEventListener('click', function() {
+            var formsetPrefix = '{{ formset.prefix }}';
+            var totalForms = parseInt(document.getElementById('id_' + formsetPrefix + '-TOTAL_FORMS').value);
+            var newFieldIndex = totalForms;  // Index of the new field form
+            var fieldList = document.getElementById('field_list');
+            var newFieldForm = document.createElement('div');
+            newFieldForm.className = 'form-row mb-3'; // Add class for styling
+            // Replace '__prefix__' in the formset HTML with the new index
+            var newFormsetHtml = '{{ formset.empty_form|escapejs }}'.replace(/__prefix__/g, newFieldIndex);
+            newFieldForm.innerHTML = newFormsetHtml;
+            fieldList.appendChild(newFieldForm);
+            // Update the TOTAL_FORMS count
+            document.getElementById('id_' + formsetPrefix + '-TOTAL_FORMS').value = totalForms + 1;
+        });
+    });
+    </script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{% endblock %}

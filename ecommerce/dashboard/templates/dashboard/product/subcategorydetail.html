@@ -1,0 +1,101 @@
+{% extends base_template %}
+{% load static %}
+{% block title %}
+SubCategory
+{% endblock %}
+{% block body %}
+            <!-- ============================================================== -->
+            <!-- Start Page Content here -->
+            <!-- ============================================================== -->
+            <div class="content-page">
+                <div class="content">
+                    <!-- Start Content-->
+                    <div class="container-fluid">
+                        <!-- start page title -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box">
+                                    <h4 class="page-title">SubCategory</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end page title -->
+                        <div class="row">
+                            <a href="{% url 'dashboard:SubCategory_list'%}" >
+                                <button type="button" class="btn btn-danger waves-effect waves-light mb-4">
+                                    <i class=" font-size-16 align-middle me-2"></i> Back to SubCategory List
+                                </button>
+                            </a>
+                            <div class="col-xl-6">
+                                <!-- end card -->
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title mb-4">SubCategory Detail</h4>
+                                        <div class="table-responsive">
+                                            <table class="table mb-0">
+                                                <tbody>
+                                                    <tr>
+                                                        <th scope="row"> CategoryName:</th>
+                                                        <td>{{details.category}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">SubCategoryName:</th>
+                                                        <td>{{details.sub_category_name}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Image </th>
+                                                        <!-- <td> {{details.image.url}} </td> -->
+                                                        <td><a href="{{details.image}}" target="_blank">{{details.image}}</a> </td>
+
+                                                    </tr>
+                                                    
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end card -->
+                                <!-- end card -->
+                            </div>
+                            <div class="col-xl-6">
+                                <!-- end card -->
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title mb-4">Child Category Added</h4>
+                                        <div class="table-responsive">
+                                            <table class="table mb-0">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="row">Sn</th>
+                                                        <th scope="row">ChildCategory</th>
+                                                        <th scope="row">Image</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for item in details.subCategories.all%}
+                                                    <tr>
+                                                        <td>{{forloop.counter}}</td>
+                                                        <td>{{item.child_category_name}}</td>
+                                                        <td><a href="{{item.image.url}}"target="_blank">{{item.image.url}}</a></td>
+                                                    </tr>
+                                                    {%endfor%}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="col-auto mt-3">
+                                        <a href="{% url 'dashboard:edit_sub_category' details.id %}" >
+                                            <button type="button" class="btn btn-danger waves-effect waves-light mb-4">
+                                                <i class=" font-size-16 align-middle me-2"></i>Edit SubCategory Detail
+                                            </button>
+                                        </a>
+                                    </div>
+                                    </div>
+                                </div>
+                                <!-- end card -->
+                                <!-- end card -->
+                            </div>
+                        </div>
+                    </div> <!-- container -->
+                </div> <!-- content -->
+                    <!-- Delete Modal HTML -->
+                {%endblock%}

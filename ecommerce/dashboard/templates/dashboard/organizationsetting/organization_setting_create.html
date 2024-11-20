@@ -1,0 +1,122 @@
+{% extends base_template %}
+{% load static %}
+{% block title %} 
+Organization Setting
+{% endblock %} 
+{% block body %}
+<style>
+    #id_logo, #id_favicon, #id_email, #id_contact, #id_address, #id_locationUrl, #id_facebookUrl, #id_youtubeUrl, #id_instagramUrl{
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #CED4DA;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+    [id^="id_logo-"]:not([id$="-DELETE"]) {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #CED4DA;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+    .add-more-btn {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        font-size: 16px;
+        text-align: center;
+        border: 1px solid #CED4DA;
+        border-radius: 4px;
+        background-color: #f8f9fa;
+        color: #495057;
+        cursor: pointer;
+    }
+    .add-more-btn:hover {
+        background-color: #e2e6ea;
+    }
+    .btn-container {
+        text-align: center;
+        margin-top: 20px; /* Adjust as needed */
+    }
+</style>
+<div class="content-page">
+    <div class="content">
+        <!-- Start Content-->
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box">
+                        <div class="page-title-right"></div>
+                        <h4 class="page-title">Organization Setting</h4>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <form method="post" enctype="multipart/form-data" action="{% if instance %}{% url 'dashboard:edit_OrganizationSetting'  instance.id %}{% else %}{% url 'dashboard:add_OrganizationSetting' %}{% endif %}">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <!-- Left column for the first five fields -->
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="Organization-instagramUrl" class="form-label">Instagram Url:</label>
+                                            {{ form.instagramUrl }}
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="Organization-address" class="form-label">Address:<span class="text-danger">*</span></label>
+                                            {{ form.address }}
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="Organization-email" class="form-label">Email:<span class="text-danger">*</span></label>
+                                            {{ form.email }}
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="Organization-contact" class="form-label">Contact:<span class="text-danger">*</span></label>
+                                            {{ form.contact }}
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="Organization-favicon" class="form-label">Favicon:</label>
+                                            {{ form.favicon }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="Organization-locationUrl" class="form-label">Location Url:</label>
+                                            {{ form.locationUrl }}
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="Organization-facebookUrl" class="form-label">Facebook Url:</label>
+                                            {{ form.facebookUrl }}
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="Organization-youtubeUrl" class="form-label">Youtube Url:</label>
+                                            {{ form.youtubeUrl }}
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="Organization-logo" class="form-label">Logo: <span class="text-danger">*</span></label>
+                                            {{ form.logo }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="btn-container">
+                                    {% if instance %}
+                                    <button type="submit" class="btn btn-danger rounded-pill mb-3">Update</button>
+                                    {% else %}
+                                    <button type="submit" class="btn btn-danger rounded-pill mb-3" id="add_field_button1"><i class="mdi mdi-plus"></i>Add</button>
+                                    {% endif %}
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- container -->
+    </div> <!-- content -->
+</div>
+{% endblock %}

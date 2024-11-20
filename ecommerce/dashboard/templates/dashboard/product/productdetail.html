@@ -1,0 +1,149 @@
+{% extends base_template %}
+{% load static %}
+{% block title %}
+Product Detail
+{% endblock %}
+{% block body %}
+            <!-- ============================================================== -->
+            <!-- Start Page Content here -->
+            <!-- ============================================================== -->
+            <div class="content-page">
+                <div class="content">
+                    <!-- Start Content-->
+                    <div class="container-fluid">
+                        <!-- start page title -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box">
+                                    <h4 class="page-title">Product Detail</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end page title -->
+                        <div class="row">
+                            <a href="{% url 'dashboard:product_list'%}" >
+                                <button type="button" class="btn btn-danger waves-effect waves-light mb-4">
+                                    <i class=" font-size-16 align-middle me-2"></i> Back to Product List
+                                </button>
+                            </a>
+                            <div class="col-xl-6">
+                                <!-- end card -->
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title mb-4">Product Detail</h4>
+                                        <div class="table-responsive">
+                                            <table class="table mb-0">
+                                                <tbody>
+                                                    <tr>
+                                                        <th scope="row"> ProductName:</th>
+                                                        <td>{{details.product_name}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row"> Category:</th>
+                                                        <td>{{details.category}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">SubCategory:</th>
+                                                        <td>{{details.sub_category}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">ChildCategory:</th>
+                                                        <td>{{details.child_sub_category}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Image </th>
+                                                        <!-- <td> {{details.image.url}} </td> -->
+                                                        <td><a href="{{details.image}}" target="_blank">{{details.image}}</a> </td>
+
+                                                    </tr>
+                                                    
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end card -->
+                                <!-- end card -->
+                            </div>
+                            <div class="col-xl-6">
+                                <!-- end card -->
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title mb-4">Stock</h4>
+                                        <div class="table-responsive">
+                                            <table class="table mb-0">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="row">Sn</th>
+                                                        <th scope="row">Attribute</th>
+                                                        <th scope="row"> PlusPrice </th>
+                                                        <th scope="row"> Quantity </th>
+                                                        <th scope="row">Image</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for item in details.product_stock.all%}
+                                                    <tr>
+                                                        <td>{{forloop.counter}}</td>
+                                                        <td>{{item.attributes}}</td>
+                                                        <td>{{item.addprice}}</td>
+                                                        <td>{{item.quantity}}</td>
+                                                        <td><a href="{{item.file.url}}"target="_blank">{{item.file.url}}</a></td>
+                                                    </tr>
+                                                    {%endfor%}
+                                                </tbody>
+                                            </table>     </div>
+                                        <div class="col-auto mt-3">
+                                        <a href="{% url 'dashboard:edit_product' details.id %}" >
+                                
+                                               <button type="button" class="btn btn-danger waves-effect waves-light mb-4">
+                                                <i class=" font-size-16 align-middle me-2"></i>Edit Stock Detail
+                                            </button>
+                                        </a>
+                                    </div>
+                                    </div>
+                                </div>
+                                <!-- end card -->
+                                <!-- end card -->
+                            </div>
+                            <div class="col-xl-6">
+                                <!-- end card -->
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title mb-4">Product Images</h4>
+                                        <div class="table-responsive">
+                                            <table class="table mb-0">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="row">Sn</th>
+                                                        <th scope="row">Image</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for item in details.product.all%}
+                                                    <tr>
+                                                        <td>{{forloop.counter}}</td>
+                                          
+                                                        <td><a href="{{item.file.url}}"target="_blank">{{item.file.url}}</a></td>
+                                                    </tr>
+                                                    {%endfor%}
+                                                </tbody>
+                                            </table>     </div>
+                                        <div class="col-auto mt-3">
+                                        <a href="{% url 'dashboard:edit_product' details.id %}" >
+                                
+                                               <button type="button" class="btn btn-danger waves-effect waves-light mb-4">
+                                                <i class=" font-size-16 align-middle me-2"></i>Edit Image
+                                            </button>
+                                        </a>
+                                    </div>
+                                    </div>
+                                </div>
+                                <!-- end card -->
+                                <!-- end card -->
+                            </div>
+                        </div>
+                    </div> <!-- container -->
+                </div> <!-- content -->
+                    <!-- Delete Modal HTML -->
+                {%endblock%}

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input,
+        .form-group select {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .form-group input[type="number"] {
+            -moz-appearance: textfield;
+        }
+        .form-group input[type="number"]::-webkit-outer-spin-button,
+        .form-group input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        .form-group .required::after {
+            content: "*";
+            color: red;
+            margin-left: 5px;
+        }
+        @media (min-width: 600px) {
+            .form-row {
+                display: flex;
+                gap: 20px;
+            }
+            .form-group {
+                flex: 1;
+            }
+        }
+
+        /* Animation */
+        .scroll-up-animation {
+            animation: scrollUp 0.3s ease-in-out;
+        }
+
+        @keyframes scrollUp {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(-100%);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Product Information</h2>
+        <form id="productForm">
+            <div class="form-group">
+                <label for="product-name" class="required">Product Name</label>
+                <input type="text" id="product-name" name="product-name" required>
+            </div>
+            <div class="form-group">
+                <label for="category" class="required">Category</label>
+                <input type="text" id="category" name="category" required>
+            </div>
+            <div class="form-group">
+                <label for="sub-category">Sub Category</label>
+                <input type="text" id="sub-category" name="sub-category">
+            </div>
+            <div class="form-group">
+                <label for="child-sub-category">Child Sub Category</label>
+                <input type="text" id="child-sub-category" name="child-sub-category">
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="previous-price" class="required">Previous Price</label>
+                    <input type="number" id="previous-price" name="previous-price" required>
+                </div>
+                <div class="form-group">
+                    <label for="current-price" class="required">Current Price</label>
+                    <input type="number" id="current-price" name="current-price" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="product-owner">Product Owner</label>
+                <input type="text" id="product-owner" name="product-owner">
+            </div>
+            <button type="submit" id="submitButton">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('productForm');
+            const submitButton = document.getElementById('submitButton');
+
+            submitButton.addEventListener('click', function(event) {
+                event.preventDefault(); // Prevent the form from submitting
+                form.classList.toggle('scroll-up-animation');
+            });
+        });
+    </script>
+</body>
+</html>

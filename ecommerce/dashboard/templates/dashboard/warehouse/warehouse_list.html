@@ -1,0 +1,140 @@
+{% extends base_template %}
+{% load static %}
+{% block title %} 
+Ware House 
+{% endblock %}
+{% block body %}
+            <!-- ============================================================== -->
+            <!-- Start Page Content here -->
+            <!-- ============================================================== -->
+
+            <div class="content-page">
+                <div class="content">
+
+                    <!-- Start Content-->
+                    <div class="container-fluid">
+                       
+                        <!-- start page title -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box">
+                                  
+                                    <h4 class="page-title">Ware House </h4>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end page title -->
+                     
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row mb-2">
+                                            <div class="col-sm-4">
+                                                <a href="{% url 'dashboard:add_Warehouse' %}" class="btn btn-danger rounded-pill mb-3"><i class="mdi mdi-plus"></i>Add  Ware house</a>
+                                            </div>
+                                        </div>
+                                        
+
+                                        <div class="table-responsive" style="overflow-x: auto; width: 100%;">
+                                            <table class="table table-striped dt-responsive w-100" id="myDataTable">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Id</th>
+                                                        <th>Country</th>
+                                                        <th>State</th>
+                                                        <th>City</th>
+                                                        <th>Address</th>
+                                                        <th>Street No</th>
+                                                        <th>Warehouse Name</th>
+                                                        <th>Contact</th>
+                                                        <th style="width: 120px;">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for item in details %}
+                                                    <tr>
+                                                        <td>{{ forloop.counter }}</td>
+                                                        <td>{{ item.country }}</td>
+                                                        <td>{{ item.city }}</td>
+                                                        <td>{{ item.state }}</td>
+                                                        <td>{{ item.address }}</td>
+                                                        <td>{{ item.streetnumber }}</td>
+                                                        <td>{{ item.warehousename }}</td>
+                                                        <td>{{ item.contact }}</td>
+                                                        <td style="display:inline-block; margin-right:5px;">
+                                                            {% comment %} <a href="{% url 'dashboard:warehouse_list' item.id %}" class="action-icon"> <i class="mdi mdi-eye"></i></a> {% endcomment %}
+                                                            <a href="{% url 'dashboard:edit_Warehouse' item.id %}" class="action-icon"> <i class="mdi mdi-square-edit-outline "></i></a>
+                                  
+                                                            <a href="#WareHouseDeleteModel{{ item.id }}" style="font-size: 20px;" class="mb-3 mb-md-0"class="delete" data-toggle="modal" title="Delete" >
+                                                                <i class="mdi mdi-delete"></i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        
+                                 
+                                    <div class="modal" id="imageModal">
+                                        <div class="modal-content">
+                                            <img src="" alt="Full Image" class="modal-image" id="modalImage">
+                                        </div>
+                                    </div>
+                                    </div> <!-- end card-body-->
+                                </div> <!-- end card-->
+                            </div> <!-- end col -->
+                        </div>
+                        <!-- end row -->
+                        
+                    </div> <!-- container -->
+                
+
+                </div> <!-- content -->
+                	<!-- Delete Modal HTML -->
+          
+   
+    {% block content %}
+    {% for item in details %}
+        <div class="modal fade"  id="WareHouseDeleteModel{{item.id}}"  tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content custom-modal">
+                        <div class="modal-footer">
+                            Are you sure you want to delete this Ware house Id Number #{{ item.id }}
+                          
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <form method="post" action="{% url 'dashboard:delete_Warehouse' item.id%}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+        
+                                </div>
+                    {% endfor %}
+                    <style>
+                    /* static/css/custom.css */
+
+                    .custom-modal {
+                        background-color: white; /* Set the background color to white */
+                    }
+                    </style>
+                    <!-- Include your other CSS files -->
+                    <link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
+
+                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+                    <script>
+                        $(document).ready(function () {
+                            $('#SubnCategorydeleteModal').modal('show');
+                        });
+                    </script>
+                    {% endblock %}
+              
+{%endblock%}
+  

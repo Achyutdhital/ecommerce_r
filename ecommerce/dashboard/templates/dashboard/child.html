@@ -1,0 +1,5 @@
+{% if request.session.country == 'us' %}
+    {% extends 'dashboard/base1.html' %}
+    {% if request.session.country == 'uk' %}
+    {% extends 'dashboard/base2.html' %}
+{% endif %}

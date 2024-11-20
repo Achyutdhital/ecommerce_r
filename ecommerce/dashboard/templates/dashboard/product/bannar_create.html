@@ -1,0 +1,113 @@
+{% extends base_template %}
+{% load static %}
+{% block title %} 
+Bannar Create
+{% endblock %} 
+{% block body %}
+<style>
+    #id_title{
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #CED4DA;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+  [id^="id_title-"]:not([id$="-DELETE"]) {
+
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #CED4DA;
+        border-radius: 4px;
+        box-sizing: border-box;
+
+
+
+    }
+
+
+   
+
+    .add-more-btn {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        font-size: 16px;
+        text-align: center;
+        border: 1px solid #CED4DA;
+        border-radius: 4px;
+        background-color: #f8f9fa;
+        color: #495057;
+        cursor: pointer;
+    }
+
+
+   
+    .add-more-btn:hover {
+        background-color: #e2e6ea;
+    }
+    .btn-container {
+        text-align: center;
+        margin-top: 20px; /* Adjust as needed */
+    }
+</style>
+            <!-- Start Page Content here -->
+
+            <div class="content-page">
+                <div class="content">
+
+                    <!-- Start Content-->
+                    <div class="container-fluid">
+
+                        <!-- start page title -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box">
+                                    <div class="page-title-right">
+                                        <ol class="breadcrumb m-0">
+                                            <li class="breadcrumb-item active">Add Bannar</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end page title -->
+
+                        
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                       <form method="post" enctype="multipart/form-data" action="{% if instance %}{% url 'dashboard:edit_bannar'  instance.id %}{% else %}{% url 'dashboard:add_bannar' %}{% endif %}">
+                                          {% csrf_token %}
+                                          <div class="col-xl-12">
+                                            <div class="mb-3">
+                                                <label for="bannar-title" class="form-label" >Title: <span class="text-danger">*</span></label>
+                                                {{ form.title }}
+                                            </div>
+                                        </div>
+                                            <div class="mb-3">
+                                                <label for="{{ form.image.id_for_label }}" class="form-label">Image :</label>
+                                                <input type="file" name="{{ form.image.name }}" id="{{ form.image.id_for_label }}" class="form-control" {% if not instance %}required{% endif %} onchange="showPreview(this);">
+                                                <div id="imageContainer" style="width:auto; height:auto;">
+                                                    <img class="img-fluid" id="imagePreview" src="{% if instance.image %}{{ instance.image.url }}{% endif %}" alt="">
+                                                </div>
+                                            </div>
+
+                                          <div class="col-lg-12">
+                                             {% if instance %}
+                                             <button type="submit" class="btn btn-danger rounded-pill mb-3"></i>Update</button>
+                                         {% else %}
+                                             <button type="submit" class="btn btn-danger rounded-pill mb-3" id="add_field_button1"><i class="mdi mdi-plus"></i>Add</button>
+                                         {% endif %}
+                                        </div>
+                                       </div>
+                                       </form>
+                        
+                    </div> <!-- container -->
+
+                </div> <!-- content -->
+
+
+      {% endblock %}
